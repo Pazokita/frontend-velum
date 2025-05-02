@@ -15,6 +15,7 @@ const MapScreen = () => {
   const map = maps[0]; // temporairement : on affiche la 1re carte
   return (
     <View style={styles.container}>
+      <Text style={styles.mapTitle}>{map.title}</Text>
       <MapView
         style={styles.map}
         initialRegion={{
@@ -47,6 +48,12 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
+  },
+  mapTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 10,
   },
 });
 
