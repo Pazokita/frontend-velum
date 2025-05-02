@@ -3,6 +3,8 @@ import { View, Image, StyleSheet, Dimensions, Text } from "react-native";
 import MapView from "react-native-maps";
 import OpacitySlider from "../components/OpacitySlider";
 import { useMaps } from "../services/useMaps";
+import { MapPicker } from '../components/MapPicker';
+import { MapMetadata } from "../services/mapService";
 
 const MapScreen = () => {
   const [opacity, setOpacity] = useState(0.8);
@@ -12,10 +14,10 @@ const MapScreen = () => {
   if (error) return <Text>Impossible de charger les cartes</Text>;
   if (maps.length === 0) return <Text>Aucune carte disponible</Text>;
 
-  const map = maps[0]; // temporairement : on affiche la 1re carte
+  const [selectedMap, setSelectedMap] = useState<MapMetadata>(maps[0]);
   return (
     <View style={styles.container}>
-      <Text style={styles.mapTitle}>{map.title}</Text>
+      <Text style={styles.mapTitle}>{selectedMap.title}</Text>
       <MapView
         style={styles.map}
         initialRegion={{
@@ -25,11 +27,7 @@ const MapScreen = () => {
           longitudeDelta: 0.01,
         }}
       />
-      <Image
-        source={{ uri: map.imageUrl }}
-        style={[styles.overlay, { opacity }]}
-        resizeMode="contain"
-      />
+      <MapPicker maps={maps} onSelect={setSelectedMap} />
       <OpacitySlider value={opacity} onChange={setOpacity} />
     </View>
   );
