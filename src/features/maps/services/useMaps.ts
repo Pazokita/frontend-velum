@@ -1,13 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-export interface MapMetadata {
-  id: number;
-  title: string;
-  imageUrl: string;
-  bbox: [number, number, number, number];
-  opacity: number;
-}
+import { MapMetadata } from '../types'; 
 
 export const useMaps = () => {
   const [maps, setMaps] = useState<MapMetadata[]>([]);
